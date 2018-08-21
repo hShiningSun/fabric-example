@@ -95,7 +95,7 @@ export FABRIC_CFG_PATH=$PWD
 replacePrivateKey
 
 docker-compose -f $COMPOSE_FILE1 up -d
-docker-compose -f $COMPOSE_FILE2 up -d
+#docker-compose -f $COMPOSE_FILE2 up -d
 
 #docker logs -f cli
 fi
@@ -104,7 +104,7 @@ fi
 function networkDown () {
 replacePrivateKey1
 docker-compose -f $COMPOSE_FILE1 down
-docker-compose -f $COMPOSE_FILE2 down
+#docker-compose -f $COMPOSE_FILE2 down
 
 #Cleanup the chaincode containers
 clearContainers
