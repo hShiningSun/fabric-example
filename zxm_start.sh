@@ -13,8 +13,8 @@ IF_COUCHDB="$4"
 
 : ${CLI_TIMEOUT:="10000"}
 
-COMPOSE_FILE=docker-peer01-zhangxueming.yaml
-
+COMPOSE_FILE1=docker-orderer.yaml
+COMPOSE_FILE2=docker-zxm.yaml
 ORG1=zhangxueming
 ORG2=zhangfeilong
 
@@ -62,7 +62,7 @@ CURRENT_DIR=$PWD
 cd crypto-config/peerOrganizations/${ORG1}.example.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
-sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" $COMPOSE_FILE
+sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" docker-peer.yaml
 }
 
 
@@ -77,35 +77,34 @@ CURRENT_DIR=$PWD
 cd crypto-config/peerOrganizations/${ORG1}.example.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
-sed $OPTS "s/${PRIV_KEY}/CA1_PRIVATE_KEY/g" $COMPOSE_FILE
+sed $OPTS "s/${PRIV_KEY}/CA1_PRIVATE_KEY/g" docker-peer.yaml
 }
 
 
 
 function networkUp () {
-if [ -d "./crypto-config" ]; then
-echo "crypto-config directory already exists."
-else
+#if [ -d "./crypto-config" ]; then
+#echo "crypto-config directory already exists."
+#else
 #Generate all the artifacts that includes org certs, orderer genesis block,
 # channel configuration transaction
 #./bin/cryptogen generate --config=./crypto-config.yaml
 export FABRIC_CFG_PATH=$PWD
 #./bin/configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
 #./bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/${CH_NAME}.tx   -channelID $CH_NAME
-replacePrivateKey
-docker-compose -f $COMPOSE_FILE up -d
+#replacePrivateKey
 
-#docker-compose -f $COMPOSE_FILE2 up -d
+#docker-compose -f $COMPOSE_FILE1 up -d
+docker-compose -f $COMPOSE_FILE2 up -d
 
 #docker logs -f cli
 fi
 }
 
 function networkDown () {
-replacePrivateKey1
-docker-compose -f $COMPOSE_FILE down
-#docker-compose -f $COMPOSE_FILE2 down
-
+#replacePrivateKey1
+#docker-compose -f $COMPOSE_FILE1 down
+docker-compose -f $COMPOSE_FILE2 down
 
 #Cleanup the chaincode containers
 clearContainers
