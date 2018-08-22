@@ -98,7 +98,7 @@ export FABRIC_CFG_PATH=$PWD
 docker-compose -f $COMPOSE_FILE2 up -d
 
 #docker logs -f cli
-fi
+#fi
 }
 
 function networkDown () {
