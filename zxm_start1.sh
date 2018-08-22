@@ -62,7 +62,7 @@ CURRENT_DIR=$PWD
 cd crypto-config/peerOrganizations/${ORG1}.example.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
-sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" docker-peer.yaml
+sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" $COMPOSE_FILE2
 }
 
 
@@ -77,7 +77,7 @@ CURRENT_DIR=$PWD
 cd crypto-config/peerOrganizations/${ORG1}.example.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
-sed $OPTS "s/${PRIV_KEY}/CA1_PRIVATE_KEY/g" docker-peer.yaml
+sed $OPTS "s/${PRIV_KEY}/CA1_PRIVATE_KEY/g" $COMPOSE_FILE2
 }
 
 
@@ -92,7 +92,7 @@ function networkUp () {
 export FABRIC_CFG_PATH=$PWD
 #./bin/configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
 #./bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/${CH_NAME}.tx   -channelID $CH_NAME
-#replacePrivateKey
+replacePrivateKey
 
 #docker-compose -f $COMPOSE_FILE1 up -d
 docker-compose -f $COMPOSE_FILE2 up -d
@@ -102,7 +102,7 @@ docker-compose -f $COMPOSE_FILE2 up -d
 }
 
 function networkDown () {
-#replacePrivateKey1
+replacePrivateKey1
 #docker-compose -f $COMPOSE_FILE1 down
 docker-compose -f $COMPOSE_FILE2 down
 
