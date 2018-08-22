@@ -48,10 +48,10 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=aberic
+      # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=ychou
       # - CORE_LOGGING_LEVEL=ERROR
       - CORE_LOGGING_LEVEL=DEBUG
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=aberic_default
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=ychou_default
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
@@ -99,7 +99,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     volumes:
         - /var/run/:/host/var/run/
-        - ./chaincode/go/:/opt/gopath/src/github.com/hyperledger/fabric/aberic/chaincode/go
+        - ./chaincode/go/:/opt/gopath/src/github.com/hyperledger/fabric/ychou/chaincode/go
         - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
